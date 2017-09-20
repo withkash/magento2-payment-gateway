@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+
+<!-- Admin page configuration -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="payment">
+            <group id="kash_gateway" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1" translate="label">
+                <label>Kash Gateway</label>
+                <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title</label>
+                    <comment>This controls the title that the user sees during checkout</comment>
+                </field>
+                <field id="x_shop_name" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Shop Name</label>
+                    <frontend_class>required-entry</frontend_class>
+                </field>
+                <field id="x_account_id" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Kash Account ID</label>
+                    <frontend_class>required-entry</frontend_class>
+                    <comment>This is the account ID you get from your Kash account</comment>
+                </field>
+                <field id="server_key" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Kash Server Key</label>
+                    <frontend_class>required-entry</frontend_class>
+                    <comment>This is the server key you get from your Kash account</comment>
+                </field>
+                <field id="post_url" translate="label" type="text" sortOrder="6" showInDefault="0" showInWebsite="0" showInStore="0">
+                    <label>Gateway URL</label>
+                    <frontend_class>required-entry</frontend_class>
+                </field>
+                <field id="api_url" translate="label" type="text" sortOrder="7" showInDefault="0" showInWebsite="0" showInStore="0">
+                    <label>API Server URL</label>
+                    <frontend_class>required-entry</frontend_class>
+                </field>
+                <field id="min_order_total" translate="label" type="text" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Minimum Order Total</label>
+                </field>
+                <field id="max_order_total" translate="label" type="text" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Maximum Order Total</label>
+                </field>
+                <field id="test_mode" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Test Mode</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="test_key" translate="label" type="text" sortOrder="101" showInDefault="1" showInStore="1" showInWebsite="1">
+                    <label>Test Key</label>
+                    <comment>Required for test mode</comment>
+                </field>
+                <field id="test_url" translate="label" type="text" sortOrder="1000" showInWebsite="0" showInStore="0" showInDefault="0"></field>
+            </group>
+        </section>
+    </system>
+</config>

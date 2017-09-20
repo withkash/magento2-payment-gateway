@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<!-- Configures classes for dependency injection -->
+<!-- Virtual types are aliased class objects with different arguments -->
+<!-- Types configure the main class object -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Payment Method Facade configuration -->
+    <!-- This is the main payment model -->
+    <type name="Kash\Gateway\Model\Offsite">
+        <arguments>
+            <argument name="code" xsi:type="const">Kash\Gateway\Model\Config::METHOD_GATEWAY_KASH</argument>
+            <!-- This class is used for rendering a payment form on the admin page, this argument is required but
+                 we don't support back end order creation -->
+            <argument name="formBlockType" xsi:type="string">Magento\Payment\Block\Form\Cc</argument>
+            <argument name="infoBlockType" xsi:type="string">Kash\Gateway\Block\Adminhtml\Info</argument>
+            <argument name="valueHandlerPool" xsi:type="object">KashGatewayValueHandlerPool</argument>
+            <argument name="validatorPool" xsi:type="object">KashGatewayValidatorPool</argument>
+            <argument name="commandPool" xsi:type="object">KashGatewayCommandPool</argument>
+        </arguments>
+    </type>
+    <!-- Value Handler Configuration -->
+    <virtualType name="KashGatewayValueHandlerPool" type="Magento\Payment\Gateway\Config\ValueHandlerPool">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="default" xsi:type="string">KashGatewayConfigValueHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <!-- default config value handler -->
+    <virtualType name="KashGatewayConfigValueHandler" type="Magento\Payment\Gateway\Config\ConfigValueHandler">
+        <arguments>
+            <argument name="configInterface" xsi:type="object">Kash\Gateway\Model\Config</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Validator Configuration -->
+    <virtualType name="KashGatewayValidatorPool" type="Magento\Payment\Gateway\Validator\ValidatorPool">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+            </argument>
+        </arguments>
+    </virtualType>
+    <!-- Command Pool -->
+    <virtualType name="KashGatewayCommandPool" type="Magento\Payment\Gateway\Command\CommandPool">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="refund" xsi:type="string">KashGatewayRefundCommand</item>
+                <item name="capture" xsi:type="string">KashGatewaySaleCommand</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Refund Command -->
+    <virtualType name="KashGatewayRefundCommand" type="Magento\Payment\Gateway\Command\GatewayCommand">
+        <arguments>
+            <argument name="requestBuilder" xsi:type="object">KashRefundRequest</argument>
+            <argument name="transferFactory" xsi:type="object">Kash\Gateway\Gateway\Http\TransferFactory</argument>
+            <argument name="client" xsi:type="object">Kash\Gateway\Gateway\Http\Client\TransactionRefund</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Sale Command, happens on place order -->
+    <virtualType name="KashGatewaySaleCommand" type="Magento\Payment\Gateway\Command\GatewayCommand">
+        <arguments>
+            <argument name="requestBuilder" xsi:type="object">KashSaleRequest</argument>
+            <argument name="transferFactory" xsi:type="object">Kash\Gateway\Gateway\Http\TransferFactory</argument>
+            <argument name="client" xsi:type="object">Kash\Gateway\Gateway\Http\Client\TransactionSale</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="KashRefundRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+                <item name="payment" xsi:type="string">Kash\Gateway\Gateway\Request\PaymentDataBuilder</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="KashSaleRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+                <item name="payment" xsi:type="string">Kash\Gateway\Gateway\Request\PaymentDataBuilder</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Kash\Gateway\Model\Config">
+        <arguments>
+            <argument name="methodCode" xsi:type="string">kash_gateway</argument>
+        </arguments>
+    </type>
+</config>

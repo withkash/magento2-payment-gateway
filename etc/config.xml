@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!-- Provides default and payment specific configuration for our class -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <payment>
+            <kash_gateway>
+                <model>Kash\Gateway\Model\Offsite</model>
+                <active>0</active>
+                <bbtypes>AE,VI,MC,DI</bbtypes>
+                <order_status>pending_payment</order_status>
+                <title>Direct Debit or Credit Card</title>
+                <post_url>https://gateway.withkash.com/</post_url>
+                <api_url>https://api.withkash.com/v1/partners/</api_url>
+                <skip_order_review_step>0</skip_order_review_step>
+                <!-- is our gateway visible on checkout-->
+                <can_use_checkout>1</can_use_checkout>
+                <!-- is our gateway visible on admin portal orders-->
+                <can_use_internal>0</can_use_internal>
+                <!-- is our extension a gateway-->
+                <is_gateway>1</is_gateway>
+                <!-- do we support auth-->
+                <can_authorize>0</can_authorize>
+                <!-- do we support cap-->
+                <can_capture>1</can_capture>
+                <!-- do we support void action-->
+                <can_void>0</can_void>
+                <allowspecific>0</allowspecific>
+                <!-- "placeOrder" action, setting to authorize_capture will call capture on placeOrder -->
+                <payment_action>authorize_capture</payment_action>
+                <!-- refund support -->
+                <can_refund>1</can_refund>
+                <!-- partial refund support -->
+                <can_refund_partial_per_invoice>1</can_refund_partial_per_invoice>
+                <!-- test mode -->
+                <test_mode>0</test_mode>
+                <!-- test URL -->
+                <test_url>https://api-test.withkash.com/v1/partners/</test_url>
+            </kash_gateway>
+        </payment>
+    </default>
+</config>

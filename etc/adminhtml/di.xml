@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!-- Configures classes for dependency injection -->
+<!-- Virtual types are aliased class objects with different arguments -->
+<!-- Types configure the main class object -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Kash\Gateway\Model\Config">
+        <arguments>
+            <argument name="methodCode" xsi:type="string">kash_gateway</argument>
+        </arguments>
+    </type>
+</config>

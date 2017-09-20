@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!-- Register observers for specific events -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="checkout_onepage_controller_success_action">
+        <observer name="kash_gateway" instance="Kash\Gateway\Observer\SendReport"/>
+    </event>
+    <event name="sales_order_save_after">
+        <observer name="kash_gateway" instance="Kash\Gateway\Observer\LogOrderSave"/>
+    </event>
+    <event name="sales_convert_quote_to_order">
+        <observer name="kash_gateway" instance="Kash\Gateway\Observer\LogQuoteToOrder"/>
+    </event>
+</config>

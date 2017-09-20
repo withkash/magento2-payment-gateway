@@ -1,0 +1,32 @@
+<?php
+/**
+ * @see Kash\Gateway\Block\Adminhtml\Info
+ */
+?>
+<?php echo $this->escapeHtml($this->getMethod()->getTitle()) ?>
+
+
+    <table>
+        <?php if ($_specificInfo = $this->getAdditionalInformation()): ?>
+            <?php foreach ($_specificInfo as $_label => $_value): ?>
+                <?php if ($_label !== Kash\Gateway\Model\Config::TRANSACTION_TYPE): ?>
+                    <tr>
+                        <td><?php echo $this->escapeHtml($_label) ?>:</td>
+                        <td><?php echo nl2br(implode($this->getValueAsArray($_value, true), "\n")) ?></td>
+                    </tr>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        <?php endif; ?>
+
+        <?php if ($_specificInfo = $this->getSpecificInformation()): ?>
+            <?php foreach ($_specificInfo as $_label => $_value): ?>
+                <tr>
+                    <td><?php echo $this->escapeHtml($_label) ?>:</td>
+                    <td><?php echo nl2br(implode($this->getValueAsArray($_value, true), "\n")) ?></td>
+                </tr>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </table>
+
+
+<?php echo $this->getChildHtml() ?>

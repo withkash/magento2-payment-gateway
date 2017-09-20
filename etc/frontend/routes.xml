@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!-- define our routing, requests to /kash_gateway/{controller_dir}/{action_name} are handled by the execute method in the /Controller/{controller_name}/{action_name} file -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="standard">
+        <route id="kash" frontName="kash">
+            <module name="Kash_Gateway"/>
+        </route>
+    </router>
+</config>
